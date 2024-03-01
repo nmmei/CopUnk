@@ -1,0 +1,81 @@
+---
+title: "Copepod Unknowns"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+```{r}
+
+```
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+
+Libraries
+```{r}
+library(tidyverse)
+```
+
+Load Data
+```{r}
+df_Cop_unknown <- read.csv("CAunk.csv")
+
+df_Cop_unknown$RT <- as.character(df_Cop_unknown$RT) #this changes the column from number to character
+```
+
+Filtering the Data
+```{r}
+df_Mussel_std <- df_Cop_unknown %>% 
+  filter(Name=="B_Mussel_std", !Copepodamide %in% c("LysoCA_448 Results","LysoDCA_450 Results"))
+#filter - filters rows from a column, use %in% for multiple rows, use ! to keep everything but "_"
+
+ggplot(df_Mussel_std, aes(x=Copepodamide, y= Final.Conc., fill = Copepodamide)) + geom_col() + theme_classic() +theme(axis.text.x = element_text(angle = 70, vjust = 0.5, hjust=0.5))
+
+ggsave("df_Mussel_std.pdf")
+```
+
+Finding the sum + Add column with conditions
+```{r}
+df_Mussel_sum <- df_Mussel_std %>% 
+  select(-Data.File, - Type, -Level, -RT, -Acq..Date.Time, -Accuracy, -Noise) %>% 
+  summarise(Concentration = sum(Final.Conc.)) %>% 
+mutate(Species = "Copepod",nM = Concentration/1000)
+
+```
+
+CA Sum = 5130839 pM, 
+```{r}
+5130839/1000
+#pM to nM
+10/1000
+```
+M1V1 = M2V2
+
+M1 = 5130.839
+M2 = 1
+V1 = 
+V2 = 10 mL
+
+```{r}
+#V1 = M2V2/M1
+
+1*(0.01)/5130.839*1000*1000
+```
+
+We need to use 1.95 µL in Mussel std in 10 mL Filtered Seas Water (FSW)
+
+3 Replicates of toxic algae w/ CA, 3 Replicates of toxic algae wo/ CA
+3 Replicates of nontoxic algae w/CA, 3 Replicates of nontoxic algae wo/CA
+
+Total of 12 vials (120mL)
+6 CA treatments
+
+```{r}
+6*1.948999
+```
+
