@@ -1771,109 +1771,254 @@ run in the editor is displayed.</p>
 <p>Libraries</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
-<pre class="r"><code>library(tidyverse)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoi4pSA4pSAIEF0dGFjaGluZyBjb3JlIHRpZHl2ZXJzZSBwYWNrYWdlcyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlIDIuMC4wIOKUgOKUgFxu4pyUIGRwbHlyICAgICAxLjEuNCAgICAg4pyUIHJlYWRyICAgICAyLjEuNVxu4pyUIGZvcmNhdHMgICAxLjAuMCAgICAg4pyUIHN0cmluZ3IgICAxLjUuMVxu4pyUIGdncGxvdDIgICAzLjUuMCAgICAg4pyUIHRpYmJsZSAgICAzLjIuMVxu4pyUIGx1YnJpZGF0ZSAxLjkuMyAgICAg4pyUIHRpZHlyICAgICAxLjMuMVxu4pyUIHB1cnJyICAgICAxLjAuMiAgICAg4pSA4pSAIENvbmZsaWN0cyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlX2NvbmZsaWN0cygpIOKUgOKUgFxu4pyWIGRwbHlyOjpmaWx0ZXIoKSBtYXNrcyBzdGF0czo6ZmlsdGVyKClcbuKcliBkcGx5cjo6bGFnKCkgICAgbWFza3Mgc3RhdHM6OmxhZygpXG7ihLkgVXNlIHRoZSBcdTAwMWJdODs7aHR0cDovL2NvbmZsaWN0ZWQuci1saWIub3JnL1x1MDAwN2NvbmZsaWN0ZWQgcGFja2FnZVx1MDAxYl04OztcdTAwMDcgdG8gZm9yY2UgYWxsIGNvbmZsaWN0cyB0byBiZWNvbWUgZXJyb3JzXG4ifQ== -->
-<pre><code>── Attaching core tidyverse packages ───────────────────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.0     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     ── Conflicts ─────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Load Data</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfQ29wX3Vua25vd24gPC0gcmVhZC5jc3YoXCJDQXVuay5jc3ZcIilcblxuZGZfQ29wX3Vua25vd24kUlQgPC0gYXMuY2hhcmFjdGVyKGRmX0NvcF91bmtub3duJFJUKSAjdGhpcyBjaGFuZ2VzIHRoZSBjb2x1bW4gZnJvbSBudW1iZXIgdG8gY2hhcmFjdGVyXG5gYGAifQ== -->
-<pre class="r"><code>df_Cop_unknown &lt;- read.csv(&quot;CAunk.csv&quot;)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGBcbmBgYCJ9 -->
+<pre class="r"><code>```r
+library(tidyverse)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoi4pSA4pSAIEF0dGFjaGluZyBjb3JlIHRpZHl2ZXJzZSBwYWNrYWdlcyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlIDIuMC4wIOKUgOKUgFxu4pyUIGRwbHlyICAgICAxLjEuNCAgICAg4pyUIHJlYWRyICAgICAyLjEuNVxu4pyUIGZvcmNhdHMgICAxLjAuMCAgICAg4pyUIHN0cmluZ3IgICAxLjUuMVxu4pyUIGdncGxvdDIgICAzLjUuMCAgICAg4pyUIHRpYmJsZSAgICAzLjIuMVxu4pyUIGx1YnJpZGF0ZSAxLjkuMyAgICAg4pyUIHRpZHlyICAgICAxLjMuMVxu4pyUIHB1cnJyICAgICAxLjAuMiAgICAg4pSA4pSAIENvbmZsaWN0cyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlX2NvbmZsaWN0cygpIOKUgOKUgFxu4pyWIGRwbHlyOjpmaWx0ZXIoKSBtYXNrcyBzdGF0czo6ZmlsdGVyKClcbuKcliBkcGx5cjo6bGFnKCkgICAgbWFza3Mgc3RhdHM6OmxhZygpXG7ihLkgVXNlIHRoZSBcdTAwMWJdODs7aHR0cDovL2NvbmZsaWN0ZWQuci1saWIub3JnL1x1MDAwN2NvbmZsaWN0ZWQgcGFja2FnZVx1MDAxYl04OztcdTAwMDcgdG8gZm9yY2UgYWxsIGNvbmZsaWN0cyB0byBiZWNvbWUgZXJyb3JzXG4ifQ== --&gt;
+</code></pre>
+<p>── Attaching core tidyverse packages
+───────────────────────────────────── tidyverse 2.0.0 ── ✔ dplyr 1.1.4 ✔
+readr 2.1.5 ✔ forcats 1.0.0 ✔ stringr 1.5.1 ✔ ggplot2 3.5.0 ✔ tibble
+3.2.1 ✔ lubridate 1.9.3 ✔ tidyr 1.3.1 ✔ purrr 1.0.2 ── Conflicts
+───────────────────────────────────────────────────────
+tidyverse_conflicts() ── ✖ dplyr::filter() masks stats::filter() ✖
+dplyr::lag() masks stats::lag() ℹ Use the ]8;;<a href="http://conflicted.r-lib.org/conflicted" class="uri">http://conflicted.r-lib.org/conflicted</a> package]8;; to
+force all conflicts to become errors</p>
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Load Data
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGZfQ29wX3Vua25vd24gPC0gcmVhZC5jc3YoXFxDQXVuay5jc3ZcXClcblxuZGZfQ29wX3Vua25vd24kUlQgPC0gYXMuY2hhcmFjdGVyKGRmX0NvcF91bmtub3duJFJUKSAjdGhpcyBjaGFuZ2VzIHRoZSBjb2x1bW4gZnJvbSBudW1iZXIgdG8gY2hhcmFjdGVyXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+df_Cop_unknown &lt;- read.csv(\CAunk.csv\)
 
 df_Cop_unknown$RT &lt;- as.character(df_Cop_unknown$RT) #this changes the column from number to character</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Filtering the Data</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfTXVzc2VsX3N0ZCA8LSBkZl9Db3BfdW5rbm93biAlPiUgXG4gIGZpbHRlcihOYW1lPT1cIkJfTXVzc2VsX3N0ZFwiLCAhQ29wZXBvZGFtaWRlICVpbiUgYyhcIkx5c29DQV80NDggUmVzdWx0c1wiLFwiTHlzb0RDQV80NTAgUmVzdWx0c1wiKSlcbiNmaWx0ZXIgLSBmaWx0ZXJzIHJvd3MgZnJvbSBhIGNvbHVtbiwgdXNlICVpbiUgZm9yIG11bHRpcGxlIHJvd3MsIHVzZSAhIHRvIGtlZXAgZXZlcnl0aGluZyBidXQgXCJfXCJcblxuZ2dwbG90KGRmX011c3NlbF9zdGQsIGFlcyh4PUNvcGVwb2RhbWlkZSwgeT0gRmluYWwuQ29uYy4sIGZpbGwgPSBDb3BlcG9kYW1pZGUpKSArIGdlb21fY29sKCkgKyB0aGVtZV9jbGFzc2ljKCkgK3RoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gNzAsIHZqdXN0ID0gMC41LCBoanVzdD0wLjUpKVxuXG5nZ3NhdmUoXCJkZl9NdXNzZWxfc3RkLnBkZlwiKVxuYGBgIn0= -->
-<pre class="r"><code>df_Mussel_std &lt;- df_Cop_unknown %&gt;% 
-  filter(Name==&quot;B_Mussel_std&quot;, !Copepodamide %in% c(&quot;LysoCA_448 Results&quot;,&quot;LysoDCA_450 Results&quot;))
-#filter - filters rows from a column, use %in% for multiple rows, use ! to keep everything but &quot;_&quot;
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Filtering the Data
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGZfTXVzc2VsX3N0ZCA8LSBkZl9Db3BfdW5rbm93biAlPiUgXG4gIGZpbHRlcihOYW1lPT1cXEJfTXVzc2VsX3N0ZFxcLCAhQ29wZXBvZGFtaWRlICVpbiUgYyhcXEx5c29DQV80NDggUmVzdWx0c1xcLFxcTHlzb0RDQV80NTAgUmVzdWx0c1xcKSlcbiNmaWx0ZXIgLSBmaWx0ZXJzIHJvd3MgZnJvbSBhIGNvbHVtbiwgdXNlICVpbiUgZm9yIG11bHRpcGxlIHJvd3MsIHVzZSAhIHRvIGtlZXAgZXZlcnl0aGluZyBidXQgXFxfXFxcblxuZ2dwbG90KGRmX011c3NlbF9zdGQsIGFlcyh4PUNvcGVwb2RhbWlkZSwgeT0gRmluYWwuQ29uYy4sIGZpbGwgPSBDb3BlcG9kYW1pZGUpKSArIGdlb21fY29sKCkgKyB0aGVtZV9jbGFzc2ljKCkgK3RoZW1lKGF4aXMudGV4dC54ID0gZWxlbWVudF90ZXh0KGFuZ2xlID0gNzAsIHZqdXN0ID0gMC41LCBoanVzdD0wLjUpKVxuXG5nZ3NhdmUoXFxkZl9NdXNzZWxfc3RkLnBkZlxcKVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+df_Mussel_std &lt;- df_Cop_unknown %&gt;% 
+  filter(Name==\B_Mussel_std\, !Copepodamide %in% c(\LysoCA_448 Results\,\LysoDCA_450 Results\))
+#filter - filters rows from a column, use %in% for multiple rows, use ! to keep everything but \_\
 
 ggplot(df_Mussel_std, aes(x=Copepodamide, y= Final.Conc., fill = Copepodamide)) + geom_col() + theme_classic() +theme(axis.text.x = element_text(angle = 70, vjust = 0.5, hjust=0.5))
 
-ggsave(&quot;df_Mussel_std.pdf&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Finding the sum + Add column with conditions</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGZfTXVzc2VsX3N1bSA8LSBkZl9NdXNzZWxfc3RkICU+JSBcbiAgc2VsZWN0KC1EYXRhLkZpbGUsIC0gVHlwZSwgLUxldmVsLCAtUlQsIC1BY3EuLkRhdGUuVGltZSwgLUFjY3VyYWN5LCAtTm9pc2UpICU+JSBcbiAgc3VtbWFyaXNlKENvbmNlbnRyYXRpb24gPSBzdW0oRmluYWwuQ29uYy4pKSAlPiUgXG5tdXRhdGUoU3BlY2llcyA9IFwiQ29wZXBvZFwiLG5NID0gQ29uY2VudHJhdGlvbi8xMDAwKVxuXG5gYGAifQ== -->
-<pre class="r"><code>df_Mussel_sum &lt;- df_Mussel_std %&gt;% 
+ggsave(\df_Mussel_std.pdf\)</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+Finding the sum + Add column with conditions
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGZfTXVzc2VsX3N1bSA8LSBkZl9NdXNzZWxfc3RkICU+JSBcbiAgc2VsZWN0KC1EYXRhLkZpbGUsIC0gVHlwZSwgLUxldmVsLCAtUlQsIC1BY3EuLkRhdGUuVGltZSwgLUFjY3VyYWN5LCAtTm9pc2UpICU+JSBcbiAgc3VtbWFyaXNlKENvbmNlbnRyYXRpb24gPSBzdW0oRmluYWwuQ29uYy4pKSAlPiUgXG5tdXRhdGUoU3BlY2llcyA9IFxcQ29wZXBvZFxcLG5NID0gQ29uY2VudHJhdGlvbi8xMDAwKVxuXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+df_Mussel_sum &lt;- df_Mussel_std %&gt;% 
   select(-Data.File, - Type, -Level, -RT, -Acq..Date.Time, -Accuracy, -Noise) %&gt;% 
   summarise(Concentration = sum(Final.Conc.)) %&gt;% 
-mutate(Species = &quot;Copepod&quot;,nM = Concentration/1000)
+mutate(Species = \Copepod\,nM = Concentration/1000)
 </code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>CA Sum = 5130839 pM,</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuNTEzMDgzOS8xMDAwXG5gYGAifQ== -->
-<pre class="r"><code>5130839/1000</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDUxMzAuODM5XG4ifQ== -->
-<pre><code>[1] 5130.839</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3BNIHRvIG5NXG4xMC8xMDAwXG5gYGAifQ== -->
-<pre class="r"><code>#pM to nM
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+CA Sum = 5130839 pM, 
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuNTEzMDgzOS8xMDAwXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+5130839/1000</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIDUxMzAuODM5XG4ifQ== --&gt;
+</code></pre>
+<p>[1] 5130.839</p>
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuI3BNIHRvIG5NXG4xMC8xMDAwXG5gYGBcbmBgYCJ9 --&gt;
+
+```r
+```r
+#pM to nM
 10/1000</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuMDFcbiJ9 -->
-<pre><code>[1] 0.01</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>M1V1 = M2V2</p>
-<p>M1 = 5130.839 M2 = 1 V1 = V2 = 10 mL</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1YxID0gTTJWMi9NMVxuXG4xKigwLjAxKS81MTMwLjgzOSoxMDAwKjEwMDBcbmBgYCJ9 -->
-<pre class="r"><code>#V1 = M2V2/M1
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuMDFcbiJ9 --&gt;
+</code></pre>
+<p>[1] 0.01</p>
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+M1V1 = M2V2
+
+M1 = 5130.839
+M2 = 1
+V1 = 
+V2 = 10 mL
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuI1YxID0gTTJWMi9NMVxuXG4xKigwLjAxKS81MTMwLjgzOSoxMDAwKjEwMDBcbmBgYFxuYGBgIn0= --&gt;
+
+```r
+```r
+#V1 = M2V2/M1
 
 1*(0.01)/5130.839*1000*1000</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEuOTQ4OTk5XG4ifQ== --&gt;
+</code></pre>
+<p>[1] 1.948999</p>
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+We need to use 1.95 µL in Mussel std in 10 mL Filtered Seas Water (FSW)
+
+3 Replicates of toxic algae w/ CA, 3 Replicates of toxic algae wo/ CA
+3 Replicates of nontoxic algae w/CA, 3 Replicates of nontoxic algae wo/CA
+
+Total of 12 vials (120mL)
+6 CA treatments
+
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuNioxLjk0ODk5OVxuYGBgXG5gYGAifQ== --&gt;
+
+```r
+```r
+6*1.948999</code></pre>
+<pre><code>
+&lt;!-- rnb-source-end --&gt;
+
+&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIDExLjY5Mzk5XG4ifQ== --&gt;
+</code></pre>
+<p>[1] 11.69399</p>
+<pre><code>
+
+
+&lt;!-- rnb-output-end --&gt;
+
+&lt;!-- rnb-chunk-end --&gt;
+
+
+&lt;!-- rnb-text-begin --&gt;
+
+
+#20mL scintillation vials 2 treatments 2 species 3 replicates
+
+&lt;!-- rnb-text-end --&gt;
+
+
+&lt;!-- rnb-chunk-begin --&gt;
+
+
+&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuMioyKjNcblxuYGBgIn0= --&gt;
+
+```r
+2*2*3
+</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEuOTQ4OTk5XG4ifQ== -->
-<pre><code>[1] 1.948999</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>We need to use 1.95 µL in Mussel std in 10 mL Filtered Seas Water
-(FSW)</p>
-<p>3 Replicates of toxic algae w/ CA, 3 Replicates of toxic algae wo/ CA
-3 Replicates of nontoxic algae w/CA, 3 Replicates of nontoxic algae
-wo/CA</p>
-<p>Total of 12 vials (120mL) 6 CA treatments</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuNioxLjk0ODk5OVxuYGBgIn0= -->
-<pre class="r"><code>6*1.948999</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDExLjY5Mzk5XG4ifQ== -->
-<pre><code>[1] 11.69399</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEyXG4ifQ== -->
+<pre><code>[1] 12</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiQ29wZXBvZCBVbmtub3ducyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKVGhpcyBpcyBhbiBbUiBNYXJrZG93bl0oaHR0cDovL3JtYXJrZG93bi5yc3R1ZGlvLmNvbSkgTm90ZWJvb2suIFdoZW4geW91IGV4ZWN1dGUgY29kZSB3aXRoaW4gdGhlIG5vdGVib29rLCB0aGUgcmVzdWx0cyBhcHBlYXIgYmVuZWF0aCB0aGUgY29kZS4gCgoKQWRkIGEgbmV3IGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqSW5zZXJ0IENodW5rKiBidXR0b24gb24gdGhlIHRvb2xiYXIgb3IgYnkgcHJlc3NpbmcgKkNtZCtPcHRpb24rSSouCmBgYHtyfQoKYGBgCgpXaGVuIHlvdSBzYXZlIHRoZSBub3RlYm9vaywgYW4gSFRNTCBmaWxlIGNvbnRhaW5pbmcgdGhlIGNvZGUgYW5kIG91dHB1dCB3aWxsIGJlIHNhdmVkIGFsb25nc2lkZSBpdCAoY2xpY2sgdGhlICpQcmV2aWV3KiBidXR0b24gb3IgcHJlc3MgKkNtZCtTaGlmdCtLKiB0byBwcmV2aWV3IHRoZSBIVE1MIGZpbGUpLiAKClRoZSBwcmV2aWV3IHNob3dzIHlvdSBhIHJlbmRlcmVkIEhUTUwgY29weSBvZiB0aGUgY29udGVudHMgb2YgdGhlIGVkaXRvci4gQ29uc2VxdWVudGx5LCB1bmxpa2UgKktuaXQqLCAqUHJldmlldyogZG9lcyBub3QgcnVuIGFueSBSIGNvZGUgY2h1bmtzLiBJbnN0ZWFkLCB0aGUgb3V0cHV0IG9mIHRoZSBjaHVuayB3aGVuIGl0IHdhcyBsYXN0IHJ1biBpbiB0aGUgZWRpdG9yIGlzIGRpc3BsYXllZC4KCgpMaWJyYXJpZXMKYGBge3J9CmxpYnJhcnkodGlkeXZlcnNlKQpgYGAKCkxvYWQgRGF0YQpgYGB7cn0KZGZfQ29wX3Vua25vd24gPC0gcmVhZC5jc3YoIkNBdW5rLmNzdiIpCgpkZl9Db3BfdW5rbm93biRSVCA8LSBhcy5jaGFyYWN0ZXIoZGZfQ29wX3Vua25vd24kUlQpICN0aGlzIGNoYW5nZXMgdGhlIGNvbHVtbiBmcm9tIG51bWJlciB0byBjaGFyYWN0ZXIKYGBgCgpGaWx0ZXJpbmcgdGhlIERhdGEKYGBge3J9CmRmX011c3NlbF9zdGQgPC0gZGZfQ29wX3Vua25vd24gJT4lIAogIGZpbHRlcihOYW1lPT0iQl9NdXNzZWxfc3RkIiwgIUNvcGVwb2RhbWlkZSAlaW4lIGMoIkx5c29DQV80NDggUmVzdWx0cyIsIkx5c29EQ0FfNDUwIFJlc3VsdHMiKSkKI2ZpbHRlciAtIGZpbHRlcnMgcm93cyBmcm9tIGEgY29sdW1uLCB1c2UgJWluJSBmb3IgbXVsdGlwbGUgcm93cywgdXNlICEgdG8ga2VlcCBldmVyeXRoaW5nIGJ1dCAiXyIKCmdncGxvdChkZl9NdXNzZWxfc3RkLCBhZXMoeD1Db3BlcG9kYW1pZGUsIHk9IEZpbmFsLkNvbmMuLCBmaWxsID0gQ29wZXBvZGFtaWRlKSkgKyBnZW9tX2NvbCgpICsgdGhlbWVfY2xhc3NpYygpICt0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDcwLCB2anVzdCA9IDAuNSwgaGp1c3Q9MC41KSkKCmdnc2F2ZSgiZGZfTXVzc2VsX3N0ZC5wZGYiKQpgYGAKCkZpbmRpbmcgdGhlIHN1bSArIEFkZCBjb2x1bW4gd2l0aCBjb25kaXRpb25zCmBgYHtyfQpkZl9NdXNzZWxfc3VtIDwtIGRmX011c3NlbF9zdGQgJT4lIAogIHNlbGVjdCgtRGF0YS5GaWxlLCAtIFR5cGUsIC1MZXZlbCwgLVJULCAtQWNxLi5EYXRlLlRpbWUsIC1BY2N1cmFjeSwgLU5vaXNlKSAlPiUgCiAgc3VtbWFyaXNlKENvbmNlbnRyYXRpb24gPSBzdW0oRmluYWwuQ29uYy4pKSAlPiUgCm11dGF0ZShTcGVjaWVzID0gIkNvcGVwb2QiLG5NID0gQ29uY2VudHJhdGlvbi8xMDAwKQoKYGBgCgpDQSBTdW0gPSA1MTMwODM5IHBNLCAKYGBge3J9CjUxMzA4MzkvMTAwMAojcE0gdG8gbk0KMTAvMTAwMApgYGAKTTFWMSA9IE0yVjIKCk0xID0gNTEzMC44MzkKTTIgPSAxClYxID0gClYyID0gMTAgbUwKCmBgYHtyfQojVjEgPSBNMlYyL00xCgoxKigwLjAxKS81MTMwLjgzOSoxMDAwKjEwMDAKYGBgCgpXZSBuZWVkIHRvIHVzZSAxLjk1IMK1TCBpbiBNdXNzZWwgc3RkIGluIDEwIG1MIEZpbHRlcmVkIFNlYXMgV2F0ZXIgKEZTVykKCjMgUmVwbGljYXRlcyBvZiB0b3hpYyBhbGdhZSB3LyBDQSwgMyBSZXBsaWNhdGVzIG9mIHRveGljIGFsZ2FlIHdvLyBDQQozIFJlcGxpY2F0ZXMgb2Ygbm9udG94aWMgYWxnYWUgdy9DQSwgMyBSZXBsaWNhdGVzIG9mIG5vbnRveGljIGFsZ2FlIHdvL0NBCgpUb3RhbCBvZiAxMiB2aWFscyAoMTIwbUwpCjYgQ0EgdHJlYXRtZW50cwoKYGBge3J9CjYqMS45NDg5OTkKYGBgCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiQ29wZXBvZCBVbmtub3ducyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKVGhpcyBpcyBhbiBbUiBNYXJrZG93bl0oaHR0cDovL3JtYXJrZG93bi5yc3R1ZGlvLmNvbSkgTm90ZWJvb2suIFdoZW4geW91IGV4ZWN1dGUgY29kZSB3aXRoaW4gdGhlIG5vdGVib29rLCB0aGUgcmVzdWx0cyBhcHBlYXIgYmVuZWF0aCB0aGUgY29kZS4gCgoKQWRkIGEgbmV3IGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqSW5zZXJ0IENodW5rKiBidXR0b24gb24gdGhlIHRvb2xiYXIgb3IgYnkgcHJlc3NpbmcgKkNtZCtPcHRpb24rSSouCmBgYHtyfQoKYGBgCgpXaGVuIHlvdSBzYXZlIHRoZSBub3RlYm9vaywgYW4gSFRNTCBmaWxlIGNvbnRhaW5pbmcgdGhlIGNvZGUgYW5kIG91dHB1dCB3aWxsIGJlIHNhdmVkIGFsb25nc2lkZSBpdCAoY2xpY2sgdGhlICpQcmV2aWV3KiBidXR0b24gb3IgcHJlc3MgKkNtZCtTaGlmdCtLKiB0byBwcmV2aWV3IHRoZSBIVE1MIGZpbGUpLiAKClRoZSBwcmV2aWV3IHNob3dzIHlvdSBhIHJlbmRlcmVkIEhUTUwgY29weSBvZiB0aGUgY29udGVudHMgb2YgdGhlIGVkaXRvci4gQ29uc2VxdWVudGx5LCB1bmxpa2UgKktuaXQqLCAqUHJldmlldyogZG9lcyBub3QgcnVuIGFueSBSIGNvZGUgY2h1bmtzLiBJbnN0ZWFkLCB0aGUgb3V0cHV0IG9mIHRoZSBjaHVuayB3aGVuIGl0IHdhcyBsYXN0IHJ1biBpbiB0aGUgZWRpdG9yIGlzIGRpc3BsYXllZC4KCgpMaWJyYXJpZXMKYGBge3J9CmxpYnJhcnkodGlkeXZlcnNlKQpgYGAKCkxvYWQgRGF0YQpgYGB7cn0KZGZfQ29wX3Vua25vd24gPC0gcmVhZC5jc3YoIkNBdW5rLmNzdiIpCgpkZl9Db3BfdW5rbm93biRSVCA8LSBhcy5jaGFyYWN0ZXIoZGZfQ29wX3Vua25vd24kUlQpICN0aGlzIGNoYW5nZXMgdGhlIGNvbHVtbiBmcm9tIG51bWJlciB0byBjaGFyYWN0ZXIKYGBgCgpGaWx0ZXJpbmcgdGhlIERhdGEKYGBge3J9CmRmX011c3NlbF9zdGQgPC0gZGZfQ29wX3Vua25vd24gJT4lIAogIGZpbHRlcihOYW1lPT0iQl9NdXNzZWxfc3RkIiwgIUNvcGVwb2RhbWlkZSAlaW4lIGMoIkx5c29DQV80NDggUmVzdWx0cyIsIkx5c29EQ0FfNDUwIFJlc3VsdHMiKSkKI2ZpbHRlciAtIGZpbHRlcnMgcm93cyBmcm9tIGEgY29sdW1uLCB1c2UgJWluJSBmb3IgbXVsdGlwbGUgcm93cywgdXNlICEgdG8ga2VlcCBldmVyeXRoaW5nIGJ1dCAiXyIKCmdncGxvdChkZl9NdXNzZWxfc3RkLCBhZXMoeD1Db3BlcG9kYW1pZGUsIHk9IEZpbmFsLkNvbmMuLCBmaWxsID0gQ29wZXBvZGFtaWRlKSkgKyBnZW9tX2NvbCgpICsgdGhlbWVfY2xhc3NpYygpICt0aGVtZShheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDcwLCB2anVzdCA9IDAuNSwgaGp1c3Q9MC41KSkKCmdnc2F2ZSgiZGZfTXVzc2VsX3N0ZC5wZGYiKQpgYGAKCkZpbmRpbmcgdGhlIHN1bSArIEFkZCBjb2x1bW4gd2l0aCBjb25kaXRpb25zCmBgYHtyfQpkZl9NdXNzZWxfc3VtIDwtIGRmX011c3NlbF9zdGQgJT4lIAogIHNlbGVjdCgtRGF0YS5GaWxlLCAtIFR5cGUsIC1MZXZlbCwgLVJULCAtQWNxLi5EYXRlLlRpbWUsIC1BY2N1cmFjeSwgLU5vaXNlKSAlPiUgCiAgc3VtbWFyaXNlKENvbmNlbnRyYXRpb24gPSBzdW0oRmluYWwuQ29uYy4pKSAlPiUgCm11dGF0ZShTcGVjaWVzID0gIkNvcGVwb2QiLG5NID0gQ29uY2VudHJhdGlvbi8xMDAwKQoKYGBgCgpDQSBTdW0gPSA1MTMwODM5IHBNLCAKYGBge3J9CjUxMzA4MzkvMTAwMAojcE0gdG8gbk0KMTAvMTAwMApgYGAKTTFWMSA9IE0yVjIKCk0xID0gNTEzMC44MzkKTTIgPSAxClYxID0gClYyID0gMTAgbUwKCmBgYHtyfQojVjEgPSBNMlYyL00xCgoxKigwLjAxKS81MTMwLjgzOSoxMDAwKjEwMDAKYGBgCgpXZSBuZWVkIHRvIHVzZSAxLjk1IMK1TCBpbiBNdXNzZWwgc3RkIGluIDEwIG1MIEZpbHRlcmVkIFNlYXMgV2F0ZXIgKEZTVykKCjMgUmVwbGljYXRlcyBvZiB0b3hpYyBhbGdhZSB3LyBDQSwgMyBSZXBsaWNhdGVzIG9mIHRveGljIGFsZ2FlIHdvLyBDQQozIFJlcGxpY2F0ZXMgb2Ygbm9udG94aWMgYWxnYWUgdy9DQSwgMyBSZXBsaWNhdGVzIG9mIG5vbnRveGljIGFsZ2FlIHdvL0NBCgpUb3RhbCBvZiAxMiB2aWFscyAoMTIwbUwpCjYgQ0EgdHJlYXRtZW50cwoKYGBge3J9CjYqMS45NDg5OTkKYGBgCgojMjBtTCBzY2ludGlsbGF0aW9uIHZpYWxzIDIgdHJlYXRtZW50cyAyIHNwZWNpZXMgMyByZXBsaWNhdGVzCmBgYHtyfQoyKjIqMwpgYGAKCg==</div>
 
 
 
