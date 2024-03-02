@@ -79,3 +79,8 @@ Total of 12 vials (120mL)
 6*1.948999
 ```
 
+#20mL scintillation vials 2 treatments 2 species 3 replicates
+```{r}
+2*2*3
+```
+
